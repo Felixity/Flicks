@@ -16,8 +16,7 @@ class MovieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Request.endPoint = "now_playing" //"top_rated"
-        Request.fetchMovies(successCallBack: onMoviesReceived, errorCallBack: nil)
+        Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: nil)
     }
 
     private func onMoviesReceived(moviesCollection: [Movie]){
