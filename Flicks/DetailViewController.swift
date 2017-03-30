@@ -48,6 +48,9 @@ class DetailViewController: UIViewController {
             releaseDateLabel.text = movie.releaseDate
             rateLabel.text = movie.rate
             overviewLabel.text = movie.overview
+            overviewLabel.sizeToFit()
+            
+            detailView.frame.size.height = overviewLabel.frame.origin.y + overviewLabel.frame.size.height
             
             if let imageURL = movie.imageURL {
                 posterImage.setImageWith(imageURL)

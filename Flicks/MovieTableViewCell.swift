@@ -30,7 +30,8 @@ class MovieTableViewCell: UITableViewCell {
         if let movie = self.movie {
             titleLabel.text = movie.title
             overviewLabel.text = movie.overview
-
+            overviewLabel.sizeToFit()
+            
             if let imageURL = movie.imageURL {
                 posterImageView.setImageWith(imageURL)
             }
