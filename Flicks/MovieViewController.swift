@@ -27,6 +27,21 @@ class MovieViewController: UIViewController {
     private func errorHandler(error: Error) {
         print(error.localizedDescription)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetails", let destinationVC = segue.destination as? DetailViewController {
+            let index = tableView.indexPath(for: sender as! MovieTableViewCell)
+            destinationVC.title = movies[(index?.row)!].title
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                if let imageData = try? Data(contentsOf: self.movies[(index?.row)!].imageURL) {
+                    DispatchQueue.main.async {
+                        destinationVC.posterImage.image = UIImage(data: imageData)
+                    }
+                }
+            }
+        }
+    }
 }
 
 extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
@@ -38,5 +53,9 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableCell", for: indexPath) as! MovieTableViewCell
         cell.movie = movies[indexPath.row]
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -22,16 +22,16 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MovieTableCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieTableCell" rowHeight="141" id="sZ3-K4-atT" customClass="MovieTableViewCell" customModule="Flicks">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="MovieTableCell" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MovieTableCell" rowHeight="141" id="sZ3-K4-atT" customClass="MovieTableViewCell" customModule="Flicks">
                                         <rect key="frame" x="0.0" y="28" width="375" height="141"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sZ3-K4-atT" id="SWI-8K-wyC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="140.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="140.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dBM-Ab-GdE">
                                                     <rect key="frame" x="8" y="8" width="93" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TJa-Gw-P3i">
                                                     <rect key="frame" x="109" y="8" width="258" height="21"/>
@@ -53,6 +53,7 @@
                                             <outlet property="overviewLabel" destination="tBY-09-aCI" id="o4D-L6-jOC"/>
                                             <outlet property="posterImageView" destination="dBM-Ab-GdE" id="gEY-RQ-XMb"/>
                                             <outlet property="titleLabel" destination="TJa-Gw-P3i" id="YdY-fj-en4"/>
+                                            <segue destination="9tJ-n0-AD2" kind="push" identifier="showDetails" id="1Z7-6Q-3tt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -72,6 +73,30 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="437.5" y="151.5"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="leZ-86-385">
+            <objects>
+                <viewController id="9tJ-n0-AD2" customClass="DetailViewController" customModule="Flicks" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3bm-dP-ubk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="sKF-V4-itG">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="jul-AJ-zCq"/>
+                    <connections>
+                        <outlet property="posterImage" destination="sKF-V4-itG" id="qJR-i2-fUl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RZC-xg-YQZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="955.5" y="151.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="3WJ-rF-4v3">
