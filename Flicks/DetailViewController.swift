@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AFNetworking
 
 class DetailViewController: UIViewController {
 
@@ -48,12 +49,11 @@ class DetailViewController: UIViewController {
             rateLabel.text = movie.rate
             overviewLabel.text = movie.overview
             
-            DispatchQueue.global(qos: .userInitiated).async {
-                if let imageData = try? Data(contentsOf: movie.imageURL) {
-                    DispatchQueue.main.async {
-                    self.posterImage.image = UIImage(data: imageData)
-                    }
-                }
+            if let imageURL = movie.imageURL {
+                posterImage.setImageWith(imageURL)
+            }
+            else {
+                posterImage.image = nil
             }
         }
     }

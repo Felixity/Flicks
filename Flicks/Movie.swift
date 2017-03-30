@@ -29,8 +29,8 @@ class Movie {
         return json[Movie.overviewKey].stringValue
     }
     
-    var imageURL: URL {
-        return URL(string: Movie.baseURL + json[Movie.posterKey].stringValue)!
+    var imageURL: URL? {
+        return URL(string: Movie.baseURL + json[Movie.posterKey].stringValue)
     }
     
     var releaseDate: String {

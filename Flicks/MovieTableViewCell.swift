@@ -30,16 +30,13 @@ class MovieTableViewCell: UITableViewCell {
         if let movie = self.movie {
             titleLabel.text = movie.title
             overviewLabel.text = movie.overview
-            
-            print(movie.imageURL)
-            DispatchQueue.global(qos: .userInitiated).async {
-                
-                if let imageData = try? Data(contentsOf: movie.imageURL) {
-                    DispatchQueue.main.async {
-                        self.posterImageView.image = UIImage(data: imageData)
-                    }
-                }
+
+            if let imageURL = movie.imageURL {
+                posterImageView.setImageWith(imageURL)
             }
+            else {
+                posterImageView.image = nil
+            }            
         }
     }
 }
