@@ -24,11 +24,22 @@ class MovieTableViewCell: UITableViewCell {
         // reset any existing movie information
         titleLabel.text = nil
         overviewLabel.text = nil
+        posterImageView.image = nil
         
         // load new movies from The Movie Database
         if let movie = self.movie {
             titleLabel.text = movie.title
             overviewLabel.text = movie.overview
+            
+            print(movie.imageURL)
+            DispatchQueue.global(qos: .userInitiated).async {
+                
+                if let imageData = try? Data(contentsOf: movie.imageURL) {
+                    DispatchQueue.main.async {
+                        self.posterImageView.image = UIImage(data: imageData)
+                    }
+                }
+            }
         }
     }
 }
