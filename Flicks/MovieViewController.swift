@@ -31,15 +31,7 @@ class MovieViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails", let destinationVC = segue.destination as? DetailViewController {
             let index = tableView.indexPath(for: sender as! MovieTableViewCell)
-            destinationVC.title = movies[(index?.row)!].title
-            
-            DispatchQueue.global(qos: .userInitiated).async {
-                if let imageData = try? Data(contentsOf: self.movies[(index?.row)!].imageURL) {
-                    DispatchQueue.main.async {
-                        destinationVC.posterImage.image = UIImage(data: imageData)
-                    }
-                }
-            }
+            destinationVC.movie = movies[(index?.row)!]
         }
     }
 }

@@ -14,6 +14,8 @@ class Movie {
     private static let overviewKey = "overview"
     private static let titleKey = "title"
     private static let posterKey = "poster_path"
+    private static let releaseDateKey = "release_date"
+    private static let rateKey = "vote_average"
     
     static let resultsKey = "results"
     
@@ -29,6 +31,19 @@ class Movie {
     
     var imageURL: URL {
         return URL(string: Movie.baseURL + json[Movie.posterKey].stringValue)!
+    }
+    
+    var releaseDate: String {
+        let stringDate = json[Movie.releaseDateKey].stringValue
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        let date = formatter.date(from: stringDate) ?? Date()
+        return formatter.string(from: date)
+    }
+    
+    var rate: String {
+        let movieRate = json[Movie.rateKey].float
+        return movieRate?.description ?? ""
     }
     
     private let json: JSON
