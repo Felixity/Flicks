@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JGProgressHUD
 
 class MovieViewController: UIViewController {
 
@@ -14,13 +15,18 @@ class MovieViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    private let progressHUD = JGProgressHUD.init(style: .light)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        progressHUD?.textLabel.text = "Loading..."
+        progressHUD?.show(in: tableView)
         Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: nil)
     }
 
     private func onMoviesReceived(moviesCollection: [Movie]){
         movies = moviesCollection
+        progressHUD?.dismiss()
         tableView.reloadData()
     }
     

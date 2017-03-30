@@ -8,4 +8,5 @@ target 'Flicks' do
   # Pods for Flicks
   pod ’SwiftyJSON’, ‘~>3.1.4’
   pod 'AFNetworking', '~> 3.0'
+  pod 'JGProgressHUD', '~> 1.4'
 end
