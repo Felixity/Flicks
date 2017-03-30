@@ -26,7 +26,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        updateUI()
         setScrollViewContentSizeForDetailLabel()
     }
     
@@ -36,19 +36,18 @@ class DetailViewController: UIViewController {
     }
     
     private func updateUI() {
+        if viewIfLoaded == nil {
+            return
+        }
         if let movie = movie {
             // Set the title of the Detail ViewController
             self.title = movie.title
             
-            print("Title: " + movie.title + "; Date: " + movie.releaseDate + "; Rate: " + movie.rate + "; Overview: " + movie.overview)
+            titleLabel.text = movie.title
+            releaseDateLabel.text = movie.releaseDate
+            rateLabel.text = movie.rate
+            overviewLabel.text = movie.overview
             
-//            print(titleLabel.text)
-            
-//            titleLabel.text = movie.title
-//            releaseDateLabel.text = movie.releaseDate
-//            rateLabel.text = movie.rate
-//            overviewLabel.text = movie.overview
-         
             DispatchQueue.global(qos: .userInitiated).async {
                 if let imageData = try? Data(contentsOf: movie.imageURL) {
                     DispatchQueue.main.async {
