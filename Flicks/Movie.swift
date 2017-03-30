@@ -17,15 +17,18 @@ class Movie {
     
     static let resultsKey = "results"
     
+    private static let baseURL = "https://image.tmdb.org/t/p/w500"
+    
     var title: String {
         return json[Movie.titleKey].stringValue
     }
+    
     var overview: String {
         return json[Movie.overviewKey].stringValue
     }
     
     var imageURL: URL {
-        return URL(string: json[Movie.posterKey].stringValue)!
+        return URL(string: Movie.baseURL + json[Movie.posterKey].stringValue)!
     }
     
     private let json: JSON
