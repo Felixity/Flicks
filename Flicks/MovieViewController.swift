@@ -49,7 +49,7 @@ class MovieViewController: UIViewController {
         movies = moviesCollection
         
         errorMessageLabel.text = nil
-        errorMessageLabel.isHidden = true
+        errorMessageView.isHidden = true
         
         progressHUD?.dismiss()
         
