@@ -14,15 +14,31 @@ class MovieViewController: UIViewController {
     var movies: [Movie] = []
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorMessageView: UIView!
+    @IBOutlet weak var errorMessageLabel: UILabel!
     
     private let progressHUD = JGProgressHUD.init(style: .light)
     private let refreshControl = UIRefreshControl()
     
+    lazy var errorHandler: ((Error) -> ())? = {
+        (error) in
+        self.errorMessageLabel.text = error.localizedDescription
+        self.errorMessageView.isHidden = false
+        
+        print(error.localizedDescription)
+        
+        self.refreshControl.endRefreshing()
+        self.progressHUD?.dismiss()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        errorMessageView.isHidden = true
+        
         progressHUD?.textLabel.text = "Loading..."
         progressHUD?.show(in: tableView)
-        Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: nil)
+        
+        Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: errorHandler)
         
         refreshControl.addTarget(self, action: #selector(refreshControlAction), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
@@ -30,17 +46,18 @@ class MovieViewController: UIViewController {
 
     private func onMoviesReceived(moviesCollection: [Movie]){
         movies = moviesCollection
+        
+        errorMessageLabel.text = nil
+        errorMessageLabel.isHidden = true
+        
         progressHUD?.dismiss()
+        
         refreshControl.endRefreshing()
         tableView.reloadData()
     }
     
-    private func errorHandler(error: Error) {
-        print(error.localizedDescription)
-    }
-    
     @objc private func refreshControlAction() {
-        Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: nil)
+        Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: errorHandler)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
