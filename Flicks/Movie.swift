@@ -20,6 +20,8 @@ class Movie {
     static let resultsKey = "results"
     
     private static let baseURL = "https://image.tmdb.org/t/p/w500"
+    private static let lowResolutionBaseURL = "https://image.tmdb.org/t/p/w45"
+    private static let highResolutionBaseURL = "https://image.tmdb.org/t/p/original"
     
     var title: String {
         return json[Movie.titleKey].stringValue
@@ -31,6 +33,14 @@ class Movie {
     
     var imageURL: URL? {
         return URL(string: Movie.baseURL + json[Movie.posterKey].stringValue)
+    }
+    
+    var smallImageURL: URL? {
+        return URL(string: Movie.lowResolutionBaseURL + json[Movie.posterKey].stringValue)
+    }
+
+    var largeImageURL: URL? {
+        return URL(string: Movie.highResolutionBaseURL + json[Movie.posterKey].stringValue)
     }
     
     var releaseDate: String {

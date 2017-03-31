@@ -31,13 +31,7 @@ class MovieTableViewCell: UITableViewCell {
             titleLabel.text = movie.title
             overviewLabel.text = movie.overview
             overviewLabel.sizeToFit()
-            
-            if let imageURL = movie.imageURL {
-                posterImageView.setImageWith(imageURL)
-            }
-            else {
-                posterImageView.image = nil
-            }            
+            Request.load(movie.imageURL, followedBy: nil, into: posterImageView)
         }
     }
 }

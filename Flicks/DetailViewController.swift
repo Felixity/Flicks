@@ -52,12 +52,7 @@ class DetailViewController: UIViewController {
             
             detailView.frame.size.height = overviewLabel.frame.origin.y + overviewLabel.frame.size.height
             
-            if let imageURL = movie.imageURL {
-                posterImage.setImageWith(imageURL)
-            }
-            else {
-                posterImage.image = nil
-            }
+            Request.load(movie.smallImageURL, followedBy: movie.largeImageURL, into: posterImage)
         }
     }
 }

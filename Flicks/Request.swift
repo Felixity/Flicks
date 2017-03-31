@@ -22,8 +22,7 @@ class Request {
         
         let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) in
             if let error = error {
-                errorCallBack!(error)
-                print(error.localizedDescription)
+                errorCallBack?(error)
             }
             else if let data = data {
                 let jsonResponse = JSON(data: data)
@@ -36,4 +35,38 @@ class Request {
         })
         task.resume()
     }
+    
+    class func load(_ smallImageURL: URL?, followedBy largeImageURL: URL?, into imageView: UIImageView) {
+        if let firstURL = smallImageURL {
+            let smallImageRequest = URLRequest(url: firstURL)
+            
+            imageView.setImageWith(smallImageRequest, placeholderImage: nil, success: {(smallImageRequest, smallImageResponse, smallImage) in
+                
+                imageView.alpha = 0
+                imageView.image = smallImage
+                
+                UIView.animate(withDuration: 0.3, animations: {() in
+                    
+                    imageView.alpha = 1
+                    
+                }, completion: {(success) in
+                    
+                    if let secondURL = largeImageURL {
+                        let largeImageRequest = URLRequest(url: secondURL)
+                        
+                        imageView.setImageWith(largeImageRequest, placeholderImage: smallImage, success: {(largeImageRequest, largeImageResponse, largeImage) in
+                            
+                            imageView.image = largeImage
+                            
+                        }, failure: {(largeImageRequest, largeImageResponse, largeImageError) in
+                            print("Error while loading the large image!")
+                        })
+                    }
+                })
+            }, failure: {(smallImageRequest, smallImageResponse, smallImageError) in
+                print("Error while loading the small image!")
+            })
+        }
+    }
+
 }
