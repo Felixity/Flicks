@@ -12,7 +12,7 @@ import SwiftyJSON
 class Request {
     private init() {} // this prevents others from using the default initializer of this class
     
-    class func fetchMovies(endPoint: String, successCallBack: @escaping ([Movie]) -> (), errorCallBack: ((Error) -> ())?) {
+    class func fetchMovies(_ endPoint: String, successCallBack: @escaping ([Movie]) -> (), errorCallBack: ((Error) -> ())?) {
         var movieCollection: [Movie] = []
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"

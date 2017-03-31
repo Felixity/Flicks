@@ -12,6 +12,7 @@ import JGProgressHUD
 class MovieViewController: UIViewController {
 
     var movies: [Movie] = []
+    var endPoint: String?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorMessageView: UIView!
@@ -38,7 +39,7 @@ class MovieViewController: UIViewController {
         progressHUD?.textLabel.text = "Loading..."
         progressHUD?.show(in: tableView)
         
-        Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: errorHandler)
+        Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
         
         refreshControl.addTarget(self, action: #selector(refreshControlAction), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
@@ -57,7 +58,7 @@ class MovieViewController: UIViewController {
     }
     
     @objc private func refreshControlAction() {
-        Request.fetchMovies(endPoint: "now_playing", successCallBack: onMoviesReceived, errorCallBack: errorHandler)
+        Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
