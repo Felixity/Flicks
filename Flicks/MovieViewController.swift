@@ -115,7 +115,7 @@ extension MovieViewController: UISearchBarDelegate {
     
     public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         isSearchActive = searchText != ""
-        filteredMovies = isSearchActive ? movies.filter{$0.title.contains(searchText)} : movies
+        filteredMovies = isSearchActive ? movies.filter{$0.title.localizedCaseInsensitiveContains(searchText)} : movies
         tableView.reloadData()
     }
 
