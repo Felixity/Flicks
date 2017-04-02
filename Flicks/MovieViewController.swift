@@ -12,7 +12,9 @@ import JGProgressHUD
 class MovieViewController: UIViewController {
 
     var movies: [Movie] = []
+    var filteredMovies: [Movie] = []
     var endPoint: String?
+    var isSearchActive = false
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorMessageView: UIView!
@@ -20,13 +22,12 @@ class MovieViewController: UIViewController {
     
     private let progressHUD = JGProgressHUD.init(style: .light)
     private let refreshControl = UIRefreshControl()
+    private let search = UISearchBar()
     
     lazy var errorHandler: ((Error) -> ())? = {
         (error) in
         self.errorMessageLabel.text = error.localizedDescription
         self.errorMessageView.isHidden = false
-        
-        print(error.localizedDescription)
         
         self.refreshControl.endRefreshing()
         self.progressHUD?.dismiss()
@@ -34,6 +35,12 @@ class MovieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        search.sizeToFit()
+        search.placeholder = "Search"
+        navigationItem.titleView = search
+        search.delegate = self
+        
         errorMessageView.isHidden = true
         
         progressHUD?.textLabel.text = "Loading..."
@@ -47,6 +54,7 @@ class MovieViewController: UIViewController {
 
     private func onMoviesReceived(moviesCollection: [Movie]){
         movies = moviesCollection
+        filteredMovies = movies
         
         errorMessageLabel.text = nil
         errorMessageView.isHidden = true
@@ -64,23 +72,51 @@ class MovieViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails", let destinationVC = segue.destination as? DetailViewController {
             let index = tableView.indexPath(for: sender as! MovieTableViewCell)
-            destinationVC.movie = movies[(index?.row)!]
+            destinationVC.movie = filteredMovies[(index?.row)!]
         }
     }
 }
 
 extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        return filteredMovies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableCell", for: indexPath) as! MovieTableViewCell
-        cell.movie = movies[indexPath.row]
+        cell.movie = filteredMovies[indexPath.row]
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+}
+
+extension MovieViewController: UISearchBarDelegate {
+    
+    public func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
+        return true
+    }
+    
+    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = nil
+        searchBar.resignFirstResponder()
+        isSearchActive = false
+        filteredMovies = movies
+        tableView.reloadData()
+    }
+    
+    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isSearchActive = searchText != ""
+        filteredMovies = isSearchActive ? movies.filter{$0.title.contains(searchText)} : movies
+        tableView.reloadData()
+    }
+
 }
