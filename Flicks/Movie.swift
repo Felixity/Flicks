@@ -46,8 +46,9 @@ class Movie {
     var releaseDate: String {
         let stringDate = json[Movie.releaseDateKey].stringValue
         let formatter = DateFormatter()
-        formatter.dateStyle = .long
+        formatter.dateFormat = "yyyy-MM-DD"
         let date = formatter.date(from: stringDate) ?? Date()
+        formatter.dateFormat = "MMM dd, YYYY"
         return formatter.string(from: date)
     }
     
