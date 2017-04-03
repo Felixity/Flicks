@@ -36,22 +36,36 @@ class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupSearchBar()
+        setupErrorMessage()
+        setupProgressHUD()
+        setupRefreshControl()
+        
+        Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
+
+    }
+
+    private func setupSearchBar() {
         search.sizeToFit()
         search.placeholder = "Search"
         navigationItem.titleView = search
         search.delegate = self
-        
+    }
+    
+    private func setupErrorMessage() {
         errorMessageView.isHidden = true
-        
+    }
+    
+    private func setupProgressHUD() {
         progressHUD?.textLabel.text = "Loading..."
         progressHUD?.show(in: tableView)
-        
-        Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
-        
+    }
+    
+    private func setupRefreshControl() {
         refreshControl.addTarget(self, action: #selector(refreshControlAction), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
     }
-
+    
     private func onMoviesReceived(moviesCollection: [Movie]){
         movies = moviesCollection
         filteredMovies = movies
