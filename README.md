@@ -1,6 +1,6 @@
 # Project 1 - Flicks
 
-Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
+Flicks is a movie app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: 20+ hours spent in total
 
@@ -32,13 +32,12 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-[![Demo clip of app](http://i.imgur.com/jBaxgDL.gifv)](http://i.imgur.com/jBaxgDL.gifv) 
+[![Demo clip of app](http://i.imgur.com/QNmclBd.gif)](http://i.imgur.com/QNmclBd.gif) 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-To implement a UISegmentedControl to switch between a list view and a grid view.
 
 ## License
 
