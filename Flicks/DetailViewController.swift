@@ -27,6 +27,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        customizeNavigationBar()
         updateUI()
         setScrollViewContentSizeForDetailLabel()
     }
@@ -36,6 +37,19 @@ class DetailViewController: UIViewController {
         scrollView.contentSize = CGSize(width: contentWidth, height: detailView.frame.origin.y + detailView.frame.size.height)
     }
     
+    private func customizeNavigationBar() {
+        if let navigationBar = self.navigationController?.navigationBar {
+            navigationBar.tintColor = .black
+            
+            let shadow = NSShadow()
+            shadow.shadowColor = UIColor.lightGray
+            shadow.shadowOffset = CGSize(width: 2, height: 2)
+            shadow.shadowBlurRadius = 4
+            let attributeColor = UIColor.black
+            navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: attributeColor,NSShadowAttributeName: shadow]
+        }
+    }
+
     private func updateUI() {
         if viewIfLoaded == nil {
             return

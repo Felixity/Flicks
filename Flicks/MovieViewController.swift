@@ -41,6 +41,9 @@ class MovieViewController: UIViewController {
         setupProgressHUD()
         setupRefreshControl()
         
+        customizeNavigationBar()
+        
+        tableView.separatorColor = .black
         Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
 
     }
@@ -83,6 +86,12 @@ class MovieViewController: UIViewController {
         Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
     }
     
+    private func customizeNavigationBar() {
+        if let navigationBar = self.navigationController?.navigationBar {
+            navigationBar.barTintColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetails", let destinationVC = segue.destination as? DetailViewController {
             let index = tableView.indexPath(for: sender as! MovieTableViewCell)
@@ -103,7 +112,22 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .lightGray
+        tableView.cellForRow(at: indexPath)?.selectedBackgroundView = backgroundView
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+        cell.contentView.backgroundColor = backgroundColor
+        cell.tintColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+        for item in cell.subviews {
+            if (item as? UIButton) != nil {
+                item.superview?.backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+                item.tintColor = .black
+            }
+        }
     }
 }
 
