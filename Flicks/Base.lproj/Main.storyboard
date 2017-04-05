@@ -26,10 +26,10 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="141"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sZ3-K4-atT" id="SWI-8K-wyC">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="140.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dBM-Ab-GdE">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dBM-Ab-GdE">
                                                     <rect key="frame" x="8" y="8" width="93" height="128"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                                 </imageView>
@@ -50,9 +50,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="movieTitleLabel" destination="TJa-Gw-P3i" id="xVl-si-wvc"/>
                                             <outlet property="overviewLabel" destination="tBY-09-aCI" id="o4D-L6-jOC"/>
                                             <outlet property="posterImageView" destination="dBM-Ab-GdE" id="gEY-RQ-XMb"/>
-                                            <outlet property="titleLabel" destination="TJa-Gw-P3i" id="YdY-fj-en4"/>
                                             <segue destination="9tJ-n0-AD2" kind="push" identifier="showDetails" id="1Z7-6Q-3tt"/>
                                         </connections>
                                     </tableViewCell>
@@ -98,7 +98,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="sKF-V4-itG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="sKF-V4-itG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>

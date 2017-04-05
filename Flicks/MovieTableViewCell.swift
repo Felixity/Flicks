@@ -10,7 +10,7 @@ import UIKit
 
 class MovieTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var movieTitleLabel: UILabel!
     @IBOutlet weak var overviewLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
 
@@ -22,13 +22,13 @@ class MovieTableViewCell: UITableViewCell {
 
     private func updateUI() {
         // reset any existing movie information
-        titleLabel.text = nil
+        movieTitleLabel.text = nil
         overviewLabel.text = nil
         posterImageView.image = nil
         
         // load new movies from The Movie Database
         if let movie = self.movie {
-            titleLabel.text = movie.title
+            movieTitleLabel.text = movie.title
             overviewLabel.text = movie.overview
             overviewLabel.sizeToFit()
             Request.load(movie.imageURL, followedBy: nil, into: posterImageView)
