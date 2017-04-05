@@ -44,6 +44,8 @@ class MovieViewController: UIViewController {
         customizeNavigationBar()
         
         tableView.separatorColor = .black
+        tableView.backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+        
         Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
 
     }
@@ -133,12 +135,12 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
 
 extension MovieViewController: UISearchBarDelegate {
     
-    public func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.showsCancelButton = true
         return true
     }
     
-    public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
         searchBar.text = nil
         searchBar.resignFirstResponder()
@@ -147,11 +149,11 @@ extension MovieViewController: UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    public func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
     
-    public func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         isSearchActive = searchText != ""
         filteredMovies = isSearchActive ? movies.filter{$0.title.localizedCaseInsensitiveContains(searchText)} : movies
         tableView.reloadData()
