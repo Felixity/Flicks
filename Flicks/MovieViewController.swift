@@ -11,10 +11,11 @@ import JGProgressHUD
 
 class MovieViewController: UIViewController {
 
-    var movies: [Movie] = []
-    var filteredMovies: [Movie] = []
     var endPoint: String?
-    var isSearchActive = false
+    
+    fileprivate var movies: [Movie] = []
+    fileprivate var filteredMovies: [Movie] = []
+    fileprivate var isSearchActive = false
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorMessageView: UIView!
@@ -49,7 +50,6 @@ class MovieViewController: UIViewController {
         tableView.backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
         
         MovieAPI.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
-
     }
 
     private func setupSearchBar() {
