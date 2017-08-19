@@ -14,7 +14,7 @@
 		D31FA5161E8C108100AA1019 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D31FA5141E8C108100AA1019 /* LaunchScreen.storyboard */; };
 		D31FA5211E8C130200AA1019 /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FA5201E8C130200AA1019 /* MovieTableViewCell.swift */; };
 		D31FA5231E8C175A00AA1019 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FA5221E8C175A00AA1019 /* Movie.swift */; };
-		D31FA5251E8C232400AA1019 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FA5241E8C232400AA1019 /* Request.swift */; };
+		D31FA5251E8C232400AA1019 /* MovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31FA5241E8C232400AA1019 /* MovieAPI.swift */; };
 		D3F16E671E8C85C700BFD8B0 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F16E661E8C85C700BFD8B0 /* DetailViewController.swift */; };
 		EBC62BCAB33549738A99E621 /* Pods_Flicks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E73D4588D2175384F6B8E74A /* Pods_Flicks.framework */; };
 /* End PBXBuildFile section */
@@ -30,7 +30,7 @@
 		D31FA5171E8C108100AA1019 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D31FA5201E8C130200AA1019 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		D31FA5221E8C175A00AA1019 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
-		D31FA5241E8C232400AA1019 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		D31FA5241E8C232400AA1019 /* MovieAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieAPI.swift; sourceTree = "<group>"; };
 		D3F16E661E8C85C700BFD8B0 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		E73D4588D2175384F6B8E74A /* Pods_Flicks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flicks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F79D6F0EA3F9522A8AC2EEF0 /* Pods-Flicks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flicks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Flicks/Pods-Flicks.debug.xcconfig"; sourceTree = "<group>"; };
@@ -86,11 +86,11 @@
 		D31FA50A1E8C108100AA1019 /* Flicks */ = {
 			isa = PBXGroup;
 			children = (
+				D3D835CA1F47B5FF00FEAF77 /* API */,
 				D31FA51F1E8C11E300AA1019 /* Models */,
 				D31FA51E1E8C11C200AA1019 /* Views */,
 				D31FA51D1E8C11B000AA1019 /* Controllers */,
 				D31FA50B1E8C108100AA1019 /* AppDelegate.swift */,
-				D31FA5241E8C232400AA1019 /* Request.swift */,
 				D31FA50F1E8C108100AA1019 /* Main.storyboard */,
 				D31FA5121E8C108100AA1019 /* Assets.xcassets */,
 				D31FA5141E8C108100AA1019 /* LaunchScreen.storyboard */,
@@ -122,6 +122,14 @@
 				D31FA5221E8C175A00AA1019 /* Movie.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		D3D835CA1F47B5FF00FEAF77 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D31FA5241E8C232400AA1019 /* MovieAPI.swift */,
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,7 +258,7 @@
 			files = (
 				D31FA50E1E8C108100AA1019 /* MovieViewController.swift in Sources */,
 				D31FA50C1E8C108100AA1019 /* AppDelegate.swift in Sources */,
-				D31FA5251E8C232400AA1019 /* Request.swift in Sources */,
+				D31FA5251E8C232400AA1019 /* MovieAPI.swift in Sources */,
 				D3F16E671E8C85C700BFD8B0 /* DetailViewController.swift in Sources */,
 				D31FA5231E8C175A00AA1019 /* Movie.swift in Sources */,
 				D31FA5211E8C130200AA1019 /* MovieTableViewCell.swift in Sources */,

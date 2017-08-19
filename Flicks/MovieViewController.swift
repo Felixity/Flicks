@@ -24,13 +24,15 @@ class MovieViewController: UIViewController {
     private let refreshControl = UIRefreshControl()
     private let search = UISearchBar()
     
-    lazy var errorHandler: ((Error) -> ())? = {
+    lazy var errorHandler: ((Error?) -> ())? = {
         (error) in
-        self.errorMessageLabel.text = error.localizedDescription
-        self.errorMessageView.isHidden = false
-        
-        self.refreshControl.endRefreshing()
-        self.progressHUD?.dismiss()
+        if let error = error {
+            self.errorMessageLabel.text = error.localizedDescription
+            self.errorMessageView.isHidden = false
+            
+            self.refreshControl.endRefreshing()
+            self.progressHUD?.dismiss()            
+        }
     }
     
     override func viewDidLoad() {
@@ -46,7 +48,7 @@ class MovieViewController: UIViewController {
         tableView.separatorColor = .black
         tableView.backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
         
-        Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
+        MovieAPI.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
 
     }
 
@@ -85,7 +87,7 @@ class MovieViewController: UIViewController {
     }
     
     @objc private func refreshControlAction() {
-        Request.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
+        MovieAPI.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
     }
     
     private func customizeNavigationBar() {

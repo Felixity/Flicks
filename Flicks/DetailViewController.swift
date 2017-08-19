@@ -66,7 +66,7 @@ class DetailViewController: UIViewController {
             
             detailView.frame.size.height = overviewLabel.frame.origin.y + overviewLabel.frame.size.height
             
-            Request.load(movie.smallImageURL, followedBy: movie.largeImageURL, into: posterImage)
+            MovieAPI.load(movie.smallImageURL, followedBy: movie.largeImageURL, into: posterImage)
         }
     }
 }
