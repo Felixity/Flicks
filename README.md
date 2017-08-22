@@ -17,7 +17,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [X] Add a tab bar for **Now Playing** and **Top Rated** movies.
-- [ ] Implement segmented control to switch between list view and grid view.
+- [X] Implement segmented control to switch between list view and grid view.
 - [X] Add a search bar.
 - [X] All images fade in.
 - [X] For the large poster, load the low-res image first, switch to high-res when complete.
@@ -29,10 +29,9 @@ The following **additional** features are implemented:
 - [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough
-
 Here's a walkthrough of implemented user stories:
 
-[![Demo clip of app](http://i.imgur.com/QNmclBd.gif)](http://i.imgur.com/QNmclBd.gif) 
+[![Demo clip of app](http://i.imgur.com/ltCz9nd.gif)](http://i.imgur.com/ltCz9nd.gif) 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
