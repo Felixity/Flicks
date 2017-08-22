@@ -20,6 +20,7 @@ class MovieViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var errorMessageView: UIView!
     @IBOutlet weak var errorMessageLabel: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     private let progressHUD = JGProgressHUD.init(style: .light)
     private let refreshControl = UIRefreshControl()
@@ -39,6 +40,9 @@ class MovieViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.isHidden = false
+        collectionView.isHidden = true
+        
         setupSearchBar()
         setupErrorMessage()
         setupProgressHUD()
@@ -47,7 +51,7 @@ class MovieViewController: UIViewController {
         customizeNavigationBar()
         
         tableView.separatorColor = .black
-        tableView.backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+        tableView.backgroundColor = UIColor.tableViewColor
         
         MovieAPI.fetchMovies(endPoint!, successCallBack: onMoviesReceived, errorCallBack: errorHandler)
     }
@@ -57,6 +61,7 @@ class MovieViewController: UIViewController {
         search.placeholder = "Search"
         navigationItem.titleView = search
         search.delegate = self
+        search.tintColor = UIColor.black
     }
     
     private func setupErrorMessage() {
@@ -84,6 +89,7 @@ class MovieViewController: UIViewController {
         
         refreshControl.endRefreshing()
         tableView.reloadData()
+        collectionView.reloadData()
     }
     
     @objc private func refreshControlAction() {
@@ -92,16 +98,35 @@ class MovieViewController: UIViewController {
     
     private func customizeNavigationBar() {
         if let navigationBar = self.navigationController?.navigationBar {
-            navigationBar.barTintColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+            navigationBar.barTintColor = UIColor.barColor
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetails", let destinationVC = segue.destination as? DetailViewController {
-            let index = tableView.indexPath(for: sender as! MovieTableViewCell)
-            destinationVC.movie = filteredMovies[(index?.row)!]
+        if let destinationVC = segue.destination as? DetailViewController {
+            if segue.identifier == "showDetails" {
+                let index = tableView.indexPath(for: sender as! MovieTableViewCell)
+                destinationVC.movie = filteredMovies[(index?.row)!]
+            }
+            else if segue.identifier == "collectionShowDetails"{
+                let index = collectionView.indexPath(for: sender as! UICollectionViewCell)
+                destinationVC.movie = filteredMovies[(index?.row)!]
+            }
         }
     }
+    
+    @IBAction func onSegmentedControlPress(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            // display list view
+            tableView.isHidden = false
+            collectionView.isHidden = true
+        }
+        else {
+            // display grid view
+            collectionView.isHidden = false
+            tableView.isHidden = true
+        }
+    }    
 }
 
 extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
@@ -117,18 +142,19 @@ extension MovieViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .lightGray
+        backgroundView.backgroundColor = UIColor.barColor
         tableView.cellForRow(at: indexPath)?.selectedBackgroundView = backgroundView
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+        let backgroundColor = UIColor.tableViewColor
         cell.contentView.backgroundColor = backgroundColor
-        cell.tintColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+        cell.tintColor = UIColor.tableViewColor
+        tableView.separatorColor = UIColor.white
         for item in cell.subviews {
             if (item as? UIButton) != nil {
-                item.superview?.backgroundColor = UIColor(red: 252/255, green: 193/255, blue: 0, alpha: 1)
+                item.superview?.backgroundColor = UIColor.tableViewColor
                 item.tintColor = .black
             }
         }
@@ -149,6 +175,7 @@ extension MovieViewController: UISearchBarDelegate {
         isSearchActive = false
         filteredMovies = movies
         tableView.reloadData()
+        collectionView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -159,6 +186,18 @@ extension MovieViewController: UISearchBarDelegate {
         isSearchActive = searchText != ""
         filteredMovies = isSearchActive ? movies.filter{$0.title.localizedCaseInsensitiveContains(searchText)} : movies
         tableView.reloadData()
+        collectionView.reloadData()
     }
+}
 
+extension MovieViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return filteredMovies.count
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! MovieCollectionViewCell
+        cell.movie = filteredMovies[indexPath.row]
+        return cell
+    }
 }
